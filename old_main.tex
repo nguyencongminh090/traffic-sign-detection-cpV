@@ -119,7 +119,7 @@ FPT University, Ho Chi Minh Campus, Vietnam\\[0.25em]
 % =========================
 \begin{abstract}
 
-Traffic sign detection is a fundamental task in intelligent transportation systems because it enables vehicles to automatically recognize road signs and provide timely assistance to drivers. Although deep learning detectors achieve high accuracy, they usually require large datasets and considerable computational resources. This paper investigates a lightweight machine learning approach based on Histogram of Oriented Gradients (HOG) and Support Vector Machines (SVM) for traffic sign detection. The proposed framework first scans an input image using a fixed-size sliding window. HOG descriptors are extracted from each sliding window and classified using an SVM with a radial basis function kernel to determine whether the window contains the target traffic sign. Finally, Non-Maximum Suppression (NMS) removes redundant overlapping detections and produces the final detection results. Experiments are conducted using traffic sign images derived from the Mapillary Traffic Sign Dataset \cite{ertler2020mapillary}. Experimental results show that the proposed detector successfully detects the target traffic sign while maintaining low computational complexity and high interpretability.
+Traffic sign detection is a fundamental task in intelligent transportation systems because it enables vehicles to automatically recognize road signs and provide timely assistance to drivers. Although deep learning detectors achieve high accuracy, they usually require large datasets and considerable computational resources. This paper investigates a lightweight machine learning approach based on Histogram of Oriented Gradients (HOG) and Support Vector Machines (SVM) for traffic sign detection. The proposed framework first scans an input image using a fixed-size sliding window. HOG descriptors are extracted from each sliding window and classified using an SVM with a radial basis function kernel to determine whether the window contains the target traffic sign. Finally, Non-Maximum Suppression (NMS) removes redundant overlapping detections and produces the final detection results. Experiments are conducted using traffic sign images derived from the Mapillary Traffic Sign Dataset. Experimental results show that the proposed detector successfully detects the target traffic sign while maintaining low computational complexity and high interpretability.
 
 \end{abstract}
 
@@ -132,9 +132,9 @@ Traffic sign detection is a fundamental task in intelligent transportation syste
 
 Traffic signs provide essential information for regulating traffic, warning drivers of hazards, and ensuring road safety. Automatic traffic sign detection is important for ADAS, autonomous driving, and intelligent transportation systems. A reliable traffic sign detector enables vehicles to recognize road signs quickly and accurately under diverse environmental conditions.
 
-Recent advances in deep learning have significantly improved object detection performance through end-to-end architectures such as Faster R-CNN, SSD, and YOLO \cite{ren2015faster, redmon2016yolo}. Despite their high accuracy, deep learning methods require powerful hardware and large annotated datasets, making traditional machine learning attractive for lightweight applications.
+Recent advances in deep learning have significantly improved object detection performance through end-to-end architectures such as Faster R-CNN, SSD, and YOLO. Despite their high accuracy, deep learning methods require powerful hardware and large annotated datasets, making traditional machine learning attractive for lightweight applications.
 
-HOG \cite{dalal2005hog} is one of the most effective handcrafted descriptors because it captures local edge information and performs well under moderate illumination changes. Combined with SVM, it has achieved strong performance in classical object detection tasks.
+HOG is one of the most effective handcrafted descriptors because it captures local edge information and performs well under moderate illumination changes. Combined with SVM, it has achieved strong performance in classical object detection tasks.
 
 In this work, a complete traffic sign detection system based on HOG and SVM is developed. The detector scans the input image using a sliding-window strategy. Each candidate window is represented by a HOG feature vector and classified using an SVM trained with positive and negative image patches. Duplicate detections are removed using Non-Maximum Suppression (NMS), resulting in a single bounding box for each detected traffic sign.
 
@@ -160,13 +160,13 @@ Traffic sign detection has been extensively studied over the past two decades, w
 
 Early traffic sign detection relied on color segmentation and geometric shape analysis. Although effective under controlled conditions, these methods were sensitive to illumination changes and complex backgrounds.
 
-To improve robustness, researchers introduced handcrafted feature descriptors such as SIFT \cite{lowe2004sift}, SURF, LBP, and HOG. Among them, HOG became widely adopted because it effectively captures local edge structures and performs well when combined with Support Vector Machines (SVMs) \cite{boser1992svm} for object detection. A comprehensive survey of vision-based traffic sign detection for intelligent driver assistance systems was provided by M{\o}gelmose et al. \cite{mogelmose2012survey}.
+To improve robustness, researchers introduced handcrafted feature descriptors such as SIFT, SURF, LBP, and HOG. Among them, HOG became widely adopted because it effectively captures local edge structures and performs well when combined with Support Vector Machines (SVMs) for object detection.
 
-Recent deep learning detectors, including Faster R-CNN, SSD \cite{liu2016ssd}, RetinaNet \cite{lin2017retinanet}, and YOLO \cite{ren2015faster, redmon2016yolo}, significantly outperform handcrafted approaches on large-scale benchmarks but require greater computational resources and larger annotated datasets. The emergence of Convolutional Neural Networks \cite{lecun1998lenet} and, more recently, Vision Transformers \cite{dosovitskiy2021vit} has further accelerated progress in end-to-end representation learning.
+Recent deep learning detectors, including Faster R-CNN, SSD, RetinaNet, and YOLO, significantly outperform handcrafted approaches on large-scale benchmarks but require greater computational resources and larger annotated datasets.
 
 Despite recent advances, HOG+SVM remains a valuable baseline because of its simplicity, interpretability, and suitability for resource-constrained applications.
 
-Motivated by these advantages, this work adopts a classical HOG+SVM detection framework and evaluates its effectiveness on traffic sign images derived from the Mapillary Traffic Sign Dataset \cite{ertler2020mapillary}.
+Motivated by these advantages, this work adopts a classical HOG+SVM detection framework and evaluates its effectiveness on traffic sign images derived from the Mapillary Traffic Sign Dataset.
 
 
 % =========================
@@ -391,46 +391,46 @@ Figure~\ref{fig:detection_examples} presents several representative detection re
 \label{fig:detection_examples}
 \end{figure}
 
-\subsection{Representative Prediction Cases}
+\subsection{Representative Grounded Cases}
 
-Table~\ref{tab:representative_prediction_cases} presents a selection of representative prediction cases from the test set, illustrating the model's performance across various traffic sign categories. The examples demonstrate the system's capability to correctly identify critical signs such as "Stop", "Yield", and "Priority road", alongside notable failure cases. An image of "Speed limit 80 km/h" was misclassified as "Go straight or right", and "Beware of ice/snow" was confused with "Right-of-way at next intersection". Such misclassifications typically stem from similarities in sign shapes or adverse imaging conditions that distort the HOG features.
+Table~\ref{tab:representative_grounded_case_studies} presents eight representative grounded cases across the four tickers. The examples illustrate the diversity of anomaly narratives captured by the system. AMZN on 2023-10-27 is a volume-burst episode grounded to Q3 2023 earnings that exceeded EPS and revenue expectations (confidence 0.886, strong counterfactual support). NVDA on 2024-04-19 is a mixed four-day episode linked to semiconductor ETF volatility evidence (confidence 0.862, strong support). TSLA on 2024-11-06 is explained by post-election optimism toward Tesla (confidence 0.903, strong support). These cases show that the pipeline can ground firm-specific, sectoral, and macro-driven anomalies using a common retrieval and validation procedure.
 
-% Source marker: [ traffic_sign.ipynb test cases ]
-\begin{table}[htbp]
+% Source marker: [ table_05_representative_grounded_case_studies.csv ]
+\begin{table}[H]
     \centering
     \scriptsize
-    \setlength{\tabcolsep}{4.0pt}
+    \setlength{\tabcolsep}{2.5pt}
     \renewcommand{\arraystretch}{1.1}
     \begin{adjustbox}{max width=\linewidth}
-    \begin{tabular}{c c p{4.0cm} c p{4.0cm} c}
+    \begin{tabular}{c c c p{3.0cm} p{1.8cm} p{5.0cm} c c c c}
     \toprule
-    \textbf{Filename} & \textbf{True Label} & \textbf{True Name} & \textbf{Predicted Label} & \textbf{Predicted Name} & \textbf{Correct} \\
+    \textbf{Ticker} & \textbf{Peak date} & \textbf{Subtype} & \textbf{Abnormality summary} & \textbf{Top numeric driver} & \textbf{Top grounded event} & \textbf{Source} & \textbf{Conf.} & \textbf{CF support} & \textbf{CF str.} \\
     \midrule
-    10973.ppm & 14 & Stop & 14 & Stop & True \\
-    08611.ppm & 5 & Speed limit 80 km/h & 36 & Go straight or right & False \\
-    02369.ppm & 13 & Yield & 13 & Yield & True \\
-    07633.ppm & 11 & Right-of-way at next intersection & 11 & Right-of-way at next intersection & True \\
-    02288.ppm & 30 & Beware of ice/snow & 11 & Right-of-way at next intersection & False \\
-    10023.ppm & 4 & Speed limit 70 km/h & 4 & Speed limit 70 km/h & True \\
-    06545.ppm & 8 & Speed limit 120 km/h & 38 & Keep right & False \\
-    01593.ppm & 10 & No passing for vehicles over 3.5 tons & 10 & No passing for vehicles over 3.5 tons & True \\
+    AMZN & 2023-10-27 & volume-burst & Volume burst: volume z-score 3.22 with 1-day return +6.83\%. & daily return & Amazon (AMZN) Q3 2023 earnings results beat EPS \& revenue estimates & full\_text & 0.886 & strong & 0.819 \\
+    AMZN & 2024-08-02 & mixed & Unusual episode lasting 3 day(s), 1-day return -8.78\% and volume z-score 3.93. & daily return & Amazon.com (AMZN) Rose on Growing Optimism & full\_text & 0.618 & moderate & 0.743 \\
+    MSFT & 2024-04-25 & volume-burst & Volume burst: volume z-score 3.40 with 1-day return -2.45\%. & abnormal volume & Microsoft (MSFT) Continues to Grow Impressively & full\_text & 0.841 & strong & 0.765 \\
+    MSFT & 2024-08-05 & other & Unusual episode lasting 3 day(s), 1-day return -3.27\% and volume z-score 2.01. & VIX change & Stock Market Falls As Bears Bash Techs; S\&P 500 Tests Key Level Ahead Of Fed & full\_text & 0.927 & strong & 0.895 \\
+    NVDA & 2024-04-19 & mixed & Unusual episode lasting 4 day(s), 1-day return -10.00\% and volume z-score 3.36. & MACD spread & Nvidia ETFs Take Center Stage As Bears, Bulls Duke It Out With 8\%-14\% Swings (NVDA, SOXS, NVDL, ... ) & full\_text & 0.862 & strong & 0.898 \\
+    NVDA & 2024-10-15 & other & Unusual episode lasting 2 day(s), 1-day return -4.69\% and volume z-score 1.73. & MACD spread & Nvidia Stock: Blackwell AI Processors On Schedule | Investor Business Daily & full\_text & 0.889 & strong & 0.894 \\
+    TSLA & 2023-02-01 & other & Unusual episode lasting 1 day(s), 1-day return +4.73\% and volume z-score 0.55. & CPI change & Tesla Stock Forecast: TSLA blasts through \$154 resistance, \$167.50 next up & full\_text & 0.908 & strong & 0.921 \\
+    TSLA & 2024-11-06 & other & Unusual episode lasting 1 day(s), 1-day return +14.75\% and volume z-score 1.71. & daily return & Should You Buy Tesla Stock After Trump Election Win? & full\_text & 0.903 & strong & 0.863 \\
     \bottomrule
     \end{tabular}
     \end{adjustbox}
-    \caption{Representative prediction cases on the GTSRB test set.}
-    \label{tab:representative_prediction_cases}
+    \caption{Representative grounded case studies.}
+    \label{tab:representative_grounded_case_studies}
 \end{table}
 
-\subsection{Detailed Error Analysis}
+\subsection{Detailed Grounded Case Study}
 
-This detailed error analysis focuses on the misclassifications to understand the limitations of the current HOG+SVM pipeline. Certain classes exhibit lower validation accuracy in the prediction results, notably Class 5 ("Speed limit 80 km/h") with an F1-score of 0.72, and Class 30 ("Beware of ice/snow") with an F1-score of 0.83. The explicit confusion between "Beware of ice/snow" and "Right-of-way at next intersection" indicates that HOG descriptors struggle to differentiate between signs sharing similar triangular boundaries and complex internal patterns, particularly when the image resolution drops to an average of $50 \times 50$ pixels. A significant class imbalance exacerbates these issues, reflected by an imbalance ratio of 10.71 between the most frequent class (Class 2) and the least frequent class (Class 0). Training the SVM with balanced class weights only partially mitigates this problem, leaving underrepresented classes as an ongoing challenge for the linear classifier.
+The detailed case study, illustrated in Figure~\ref{fig:detailed_grounded_case_study}, focuses on MSFT at the detected peak on 2024-08-05. The episode is characterized by a one-day return of $-3.27\%$, a volume z-score of 2.01, and a three-day anomaly span. The top linked event, ``Stock Market Falls As Bears Bash Techs; S\&P 500 Tests Key Level Ahead Of Fed,'' is retrieved as full-text evidence with grounding confidence 0.927. VIX change is the strongest numeric driver, followed by MACD spread, MACD momentum, RSI momentum, and 5-day volatility, indicating a macro-driven rather than purely firm-specific anomaly. Related article themes include EARNINGS, FOMC, PRODUCT\_AI, and MACRO. Counterfactual validation also supports the explanation, with counterfactual strength 0.895, stability 0.887, specificity 0.789, and ambiguity risk 0.205.
 
-% Source marker: [ fig_08_error_analysis.png ]
-\begin{figure}[htbp]
+% Source marker: [ fig_08_detailed_grounded_case_study.png ]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{figures/fig_08_error_analysis_v3.png}
-    \caption{Detailed visualization of misclassified traffic signs and feature confusion.}
-    \label{fig:error_analysis}
+    \insertfigureorplaceholder{figures/fig_08_detailed_grounded_case_study.png}{Insert Figure 8 here.}
+    \caption{Detailed grounded case study for MSFT on 2024-08-05.}
+    \label{fig:detailed_grounded_case_study}
 \end{figure}
 
 
@@ -439,11 +439,9 @@ This detailed error analysis focuses on the misclassifications to understand the
 % =========================
 \section{Conclusion}
 
-By combining ROI-based preprocessing, HOG feature extraction, and a Linear Support Vector Machine, we established a lightweight yet effective pipeline for traffic sign recognition on the GTSRB dataset \cite{stallkamp2011gtsrb}. The 324-dimensional feature classifier successfully handles 43 sign categories with a 92.36\% validation accuracy, proving particularly robust on well-represented classes like "Priority road" and "Yield".
+FinAnomX contributes an offline-first, analyst-facing explanation pipeline rather than a standalone anomaly detector. The system unifies anomaly triggering, numeric attribution, evidence-grounded event retrieval, and counterfactual robustness testing into a reproducible artifact-based workflow for financial anomaly analysis. Across the 2023–2024 analysis window, the system identifies 25 episode peaks over AMZN, MSFT, NVDA, and TSLA, and all 25 receive a ranked top-1 grounded event explanation. The explanation layer achieves a faithfulness pass rate of 1.0000, mean top-1 grounding confidence of 0.7948, full-text evidence coverage in 84\% of cases, mean counterfactual strength of 0.8032, and strong counterfactual support in 84\% of grounded peaks.
 
-The fixed-size grid approach of HOG, however, struggles to capture subtle intra-class variations or overcome severe lighting and viewpoint distortions. This structural limitation directly causes misclassifications among underrepresented classes or signs sharing strong geometric similarities. 
-
-To transcend these bottlenecks, subsequent research will pivot toward end-to-end representation learning. Adopting deep architectures—specifically Convolutional Neural Networks (CNNs) or Vision Transformers (ViTs)—would bypass manual feature engineering entirely, enabling the model to intrinsically learn hierarchical representations that are robust against adverse environmental conditions.
+These results suggest that the main contribution of FinAnomX lies not in maximizing point-wise detection scores alone, but in converting anomaly signals into transparent and auditable analyst-facing explanations. At the same time, the current study also exposes a key limitation: the PatchTST branch remains weak under the present point-wise evaluation protocol, which is only partially aligned with the multi-day episode detection objective. Future work should therefore improve detector-label alignment, strengthen the forecasting-residual branch with richer target variables, and develop event-aware evaluation criteria that better reflect episode-level detection and near-miss explanatory usefulness.
 
 % =========================
 \clearpage
@@ -456,70 +454,65 @@ To transcend these bottlenecks, subsequent research will pivot toward end-to-end
 \begin{thebibliography}{99}
 \setlength{\itemsep}{0pt}
 
-\bibitem{dalal2005hog}
-N. Dalal and B. Triggs,
-``Histograms of oriented gradients for human detection,''
-in \emph{2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)}, 2005, pp. 886--893, doi: 10.1109/CVPR.2005.177.
+\bibitem{li2025}
+Z. Li and R. Fan,
+``Explainable heterogeneous anomaly detection in financial networks via adaptive expert routing,''
+in \emph{XAI-FIN, ACM ICAIF}, 2025.
 
-\bibitem{boser1992svm}
-B.~E. Boser, I.~M. Guyon, and V.~N. Vapnik,
-``A training algorithm for optimal margin classifiers,''
-in \emph{Proceedings of the Fifth Annual Workshop on Computational Learning Theory (COLT '92)}, 1992, pp. 144--152, doi: 10.1145/130385.130401.
+\bibitem{hu2026}
+S. Hu et al.,
+``Towards multimodal time series anomaly detection with semantic alignment and condensed interaction,''
+in \emph{ICLR}, 2026.
 
-\bibitem{lowe2004sift}
-D.~G. Lowe,
-``Distinctive image features from scale-invariant keypoints,''
-\emph{International Journal of Computer Vision}, vol. 60, no. 2, pp. 91--110, 2004, doi: 10.1023/B:VISI.0000029664.99615.94.
+\bibitem{calik2025}
+S.~S. Calik et al.,
+``Explainable-AI powered stock price prediction using time series transformers: A case study on BIST100,''
+\emph{arXiv preprint arXiv:2506.06345}, 2025.
 
-\bibitem{neubeck2006nms}
-A. Neubeck and L. Van Gool,
-``Efficient non-maximum suppression,''
-in \emph{18th International Conference on Pattern Recognition (ICPR 2006)}, 2006, pp. 850--855, doi: 10.1109/ICPR.2006.479.
+\bibitem{nie2023}
+Y. Nie et al.,
+``A time series is worth 64 words: Long-term forecasting with transformers,''
+in \emph{ICLR}, 2023.
 
-\bibitem{lecun1998lenet}
-Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner,
-``Gradient-based learning applied to document recognition,''
-\emph{Proceedings of the IEEE}, vol. 86, no. 11, pp. 2278--2324, 1998, doi: 10.1109/5.726791.
+\bibitem{tuli2022}
+S. Tuli et al.,
+``TranAD: Deep transformer networks for anomaly detection in multivariate time series,''
+\emph{Proc. VLDB Endow.}, 2022.
 
-\bibitem{ren2015faster}
-S. Ren, K. He, R. Girshick, and J. Sun,
-``Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks,''
-in \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2015, doi: 10.48550/arXiv.1506.01497.
+\bibitem{zeng2023}
+A. Zeng et al.,
+``Are transformers effective for time series forecasting?''
+in \emph{AAAI}, 2023.
 
-\bibitem{liu2016ssd}
-W. Liu et al.,
-``SSD: Single Shot MultiBox Detector,''
-in \emph{European Conference on Computer Vision (ECCV)}, 2016, pp. 21--37, doi: 10.1007/978-3-319-46448-0\_2.
+\bibitem{liu2024}
+Y. Liu et al.,
+``iTransformer: Inverted transformers are effective for time series forecasting,''
+in \emph{ICLR}, 2024.
 
-\bibitem{redmon2016yolo}
-J. Redmon, S. Divvala, R. Girshick, and A. Farhadi,
-``You Only Look Once: Unified, Real-Time Object Detection,''
-in \emph{2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 2016, pp. 779--788, doi: 10.1109/CVPR.2016.91.
+\bibitem{arrieta2020}
+A.~B. Arrieta et al.,
+``Explainable artificial intelligence (XAI): Concepts, taxonomies, opportunities and challenges,''
+\emph{Information Fusion}, 2020.
 
-\bibitem{lin2017retinanet}
-T.-Y. Lin, P. Goyal, R. Girshick, K. He, and P. Doll\'{a}r,
-``Focal loss for dense object detection,''
-in \emph{2017 IEEE International Conference on Computer Vision (ICCV)}, 2017, doi: 10.1109/ICCV.2017.324.
+\bibitem{verma2020}
+S. Verma et al.,
+``Counterfactual explanations for machine learning: A review,''
+\emph{arXiv:2010.10596}, 2020.
 
-\bibitem{mogelmose2012survey}
-A. M{\o}gelmose, M.~M. Trivedi, and T.~B. Moeslund,
-``Vision-based traffic sign detection and analysis for intelligent driver assistance systems: Perspectives and survey,''
-\emph{IEEE Transactions on Intelligent Transportation Systems}, vol. 13, no. 4, pp. 1484--1497, 2012, doi: 10.1109/TITS.2012.2209421.
+\bibitem{wachter2017}
+S. Wachter et al.,
+``Counterfactual explanations without opening the black box,''
+\emph{Harvard Journal of Law \& Technology}, 2017.
 
-\bibitem{stallkamp2011gtsrb}
-J. Stallkamp, M. Schlipsing, J. Salmen, and C. Igel,
-``The German Traffic Sign Recognition Benchmark: A multi-class classification competition,''
-in \emph{2011 International Joint Conference on Neural Networks}, 2011, pp. 1453--1460, doi: 10.1109/IJCNN.2011.6033395.
+\bibitem{giudici2021}
+P. Giudici and E. Raffinetti,
+``A Shapley value-based approach to measure financial model risk,''
+\emph{Expert Systems with Applications}, 2021.
 
-\bibitem{ertler2020mapillary}
-C. Ertler, J. Jerneven, C. Kuo, H. Neuhold, P. Neuhold, and G. Ros,
-``The Mapillary Traffic Sign Dataset for Detection and Classification on a Global Scale,''
-in \emph{Proceedings of the European Conference on Computer Vision (ECCV)}, 2020, doi: 10.1007/978-3-030-58592-1\_5.
-
-\bibitem{dosovitskiy2021vit}
-A. Dosovitskiy et al.,
-``An image is worth 16x16 words: Transformers for image recognition at scale,''
-in \emph{International Conference on Learning Representations (ICLR)}, 2021, doi: 10.48550/arXiv.2010.11929.
+\bibitem{vermeire2025}
+T. Vermeire et al.,
+``AR-Pro: Counterfactual explanations for anomaly repair with formal properties,''
+\emph{arXiv:2501.09876}, 2025.
 
 % Keep key xing2025 to preserve existing \cite{xing2025}
 \bibitem{xing2025}
@@ -532,6 +525,26 @@ in \emph{KDD}, 2025, pp. 6043--6053, doi: 10.1145/3711896.3736567.
 W. Xu et al.,
 ``FinMultiTime: A four-modal bilingual dataset for financial time-series analysis,''
 \emph{arXiv preprint arXiv:2506.05019}, 2025.
+
+\bibitem{siahmaki2023}
+M. Siahmaki et al.,
+``Using transformer models for stock market anomaly detection,''
+\emph{Journal of Data Science}, 2023.
+
+\bibitem{bhattacharyya2024}
+S. Bhattacharyya et al.,
+``Transaction anomaly detection using explainable AI,''
+\emph{JETIR}, 2024.
+
+\bibitem{luo2025}
+Y. Luo et al.,
+``Explainable AI (XAI) in financial decision-making systems,''
+\emph{ResearchGate}, 2025.
+
+\bibitem{jin2025}
+J. Jin et al.,
+``Explainable AI (XAI) in financial fraud detection systems,''
+\emph{Journal of Financial Technology}, 2025.
 
 \end{thebibliography}
 \endgroup
