@@ -1,0 +1,36 @@
+# Dataset
+data/
+*.npz
+
+# Models
+models/
+*.pkl
+
+# LaTeX Build Files
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.pdf
+
+# Exception: keep the final paper pdf if needed, but usually we ignore generated pdfs
+!main.pdf
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# IDE / OS Files
+.DS_Store
+.vscode/
+.idea/
+
+# Zips
+*.zip
+CPV_Submission_Overleaf/
