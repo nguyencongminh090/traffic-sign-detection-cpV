@@ -1,0 +1,16 @@
+- [2026-07-14T01:45:14+07:00] No modifications made to source material.
+- [2026-07-14T01:56:02+07:00] `draft_writer_agent` | Sections 5.3, 5.4, 6 | FinAnomX placeholders | Traffic Sign Detection content | Replaced placeholder templates with actual Traffic Sign dataset results, F1-scores, and test cases based on user request while maintaining the LaTeX structure.
+- [2026-07-14T01:59:57+07:00] No modifications made to source material.
+- [2026-07-14T02:07:26+07:00] No modifications made to source material.
+- [2026-07-14T02:23:34+07:00] No modifications made to source material.
+- [2026-07-14T02:31:31+07:00] No modifications made to source material.
+- [2026-07-14T02:33:27+07:00] No modifications made to source material.
+- [2026-07-14T02:45:07+07:00] Updated Section 5.4: Replaced placeholder macro with explicit \includegraphics for Figure 8.
+- [2026-07-14T03:12:47+07:00] No modifications made to source material.
+- [2026-07-14T03:44:47+07:00] `academic-pipeline` | Sections 5.3 & 5.4 | De-AI rewriting and updated Figure 8 path.
+- [2026-07-14T03:58:51+07:00] `academic-pipeline` | Section 6 | De-AI rewriting and Future Work placeholder.
+- [2026-07-14T04:00:32+07:00] `academic-pipeline` | Section 6 | Finalized Future Work with Option A (Deep Learning Architecture).
+- [2026-07-14T04:07:55+07:00] `academic-pipeline` | Sections 5.3 & 5.4 | Replaced [H] float placement with [htbp] to fix layout spacing issues.
+- [2026-07-14T04:15:55+07:00] `academic-pipeline` | References | Strict Verification and References Replacement completed successfully.
+- [2026-07-14T04:22:12+07:00] `academic-pipeline` | References | Expanded to 15 domain-specific verified refs with DOIs.
+- [2026-07-14T04:30:17+07:00] `academic-pipeline` | Packaging | Safely cleaned cache/drafts, verified Overleaf compatibility, and generated CPV_Submission_Overleaf.zip
