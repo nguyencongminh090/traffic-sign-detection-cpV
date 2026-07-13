@@ -1,0 +1,196 @@
+!mkdir -p /content/data
+
+!wget -nc -P /content/data \
+https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Training_Images.zip
+
+!wget -nc -P /content/data \
+https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_Images.zip
+
+!wget -nc -P /content/data \
+https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_GT.zip
+
+!unzip -q -n /content/data/GTSRB_Final_Training_Images.zip -d /content/data
+!unzip -q -n /content/data/GTSRB_Final_Test_Images.zip -d /content/data
+!unzip -q -n /content/data/GTSRB_Final_Test_GT.zip -d /content/data
+
+print("Dataset downloaded and extracted successfully.")
+
+import os
+import glob
+import cv2
+import pandas as pd
+import matplotlib.pyplot as plt
+
+TRAIN_DIR = "/content/data/GTSRB/Final_Training/Images"
+TEST_DIR = "/content/data/GTSRB/Final_Test/Images"
+
+# Đọc annotation của training set
+train_csv_files = sorted(
+    glob.glob(os.path.join(TRAIN_DIR, "*", "GT-*.csv"))
+)
+
+train_frames = []
+
+for csv_path in train_csv_files:
+    class_folder = os.path.dirname(csv_path)
+
+    class_df = pd.read_csv(csv_path, sep=";")
+
+    class_df["ImagePath"] = class_df["Filename"].apply(
+        lambda filename: os.path.join(class_folder, filename)
+    )
+
+    train_frames.append(class_df)
+
+train_df = pd.concat(train_frames, ignore_index=True)
+
+print("Training shape:", train_df.shape)
+train_df.head()
+
+# Đọc annotation của test set
+test_gt_path = glob.glob(
+    "/content/data/**/GT-final_test.csv",
+    recursive=True
+)[0]
+
+test_df = pd.read_csv(test_gt_path, sep=";")
+
+test_df["ImagePath"] = test_df["Filename"].apply(
+    lambda filename: os.path.join(TEST_DIR, filename)
+)
+
+print("Test shape:", test_df.shape)
+test_df.head()
+
+dataset_summary = pd.DataFrame({
+    "Dataset": [
+        "Training set",
+        "Test set",
+        "Complete dataset"
+    ],
+    "Number of images": [
+        len(train_df),
+        len(test_df),
+        len(train_df) + len(test_df)
+    ],
+    "Number of classes": [
+        train_df["ClassId"].nunique(),
+        test_df["ClassId"].nunique(),
+        train_df["ClassId"].nunique()
+    ]
+})
+
+dataset_summary
+
+class_distribution = (
+    train_df["ClassId"]
+    .value_counts()
+    .sort_index()
+)
+
+plt.figure(figsize=(16, 6))
+
+plt.bar(
+    class_distribution.index,
+    class_distribution.values
+)
+
+plt.xlabel("Class ID")
+plt.ylabel("Number of training images")
+plt.title("Distribution of Training Images Across 43 Classes")
+
+plt.xticks(range(43))
+plt.grid(axis="y", alpha=0.3)
+
+plt.show()
+
+print("Class with the fewest images:")
+print("Class ID:", class_distribution.idxmin())
+print("Number of images:", class_distribution.min())
+
+print("\nClass with the most images:")
+print("Class ID:", class_distribution.idxmax())
+print("Number of images:", class_distribution.max())
+
+print(
+    "\nImbalance ratio:",
+    round(
+        class_distribution.max()
+        / class_distribution.min(),
+        2
+    )
+)
+
+train_df[["Width", "Height"]].describe()
+
+plt.figure(figsize=(10, 5))
+
+plt.hist(
+    train_df["Width"],
+    bins=40,
+    alpha=0.65,
+    label="Width"
+)
+
+plt.hist(
+    train_df["Height"],
+    bins=40,
+    alpha=0.65,
+    label="Height"
+)
+
+plt.xlabel("Number of pixels")
+plt.ylabel("Number of images")
+plt.title("Distribution of Original Image Dimensions")
+
+plt.legend()
+plt.grid(axis="y", alpha=0.3)
+
+plt.show()
+
+sample_df = train_df.sample(
+    n=12,
+    random_state=42
+)
+
+plt.figure(figsize=(16, 10))
+
+for position, (_, row) in enumerate(
+    sample_df.iterrows(),
+    start=1
+):
+    image = cv2.imread(row["ImagePath"])
+
+    image = cv2.cvtColor(
+        image,
+        cv2.COLOR_BGR2RGB
+    )
+
+    # Crop vùng chứa biển báo để hiển thị rõ hơn
+    x1 = int(row["Roi.X1"])
+    y1 = int(row["Roi.Y1"])
+    x2 = int(row["Roi.X2"])
+    y2 = int(row["Roi.Y2"])
+
+    roi_image = image[
+        y1:y2 + 1,
+        x1:x2 + 1
+    ]
+
+    plt.subplot(3, 4, position)
+
+    plt.imshow(roi_image)
+
+    plt.title(
+        f"Class ID: {row['ClassId']}"
+    )
+
+    plt.axis("off")
+
+plt.suptitle(
+    "Sample Images from the GTSRB Dataset",
+    fontsize=16
+)
+
+plt.tight_layout()
+plt.show()

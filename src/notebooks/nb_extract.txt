@@ -1,0 +1,381 @@
+\n==================================================\nNotebook: data_overview.ipynb\n==================================================
+\n--- Markdown Cell 0 ---
+# GTSRB Dataset Overview
+
+Notebook này trình bày tổng quan về bộ dữ liệu **German Traffic Sign Recognition Benchmark – GTSRB**.
+
+Nội dung gồm:
+
+- Đọc thông tin tập train và test.
+- Thống kê số lượng ảnh và số lớp.
+- Phân tích phân bố lớp.
+- Phân tích kích thước ảnh.
+- Hiển thị một số ảnh mẫu.
+\n--- Code Cell 1 Outputs ---
+--2026-07-13 02:45:02--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Training_Images.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 276294756 (263M) [application/zip]
+Saving to: ‘/content/data/GTSRB_Final_Training_Images.zip’
+
+GTSRB_Final_Trainin 100%[===================>] 263.50M  14.6MB/s    in 25s     
+
+2026-07-13 02:45:28 (10.6 MB/s) - ‘/content/data/GTSRB_Final_Training_Images.zip’ saved [276294756/276294756]
+
+--2026-07-13 02:45:28--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_Images.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 88978620 (85M) [application/zip]
+Saving to: ‘/content/data/GTSRB_Final_Test_Images.zip’
+
+GTSRB_Final_Test_Im 100%[===================>]  84.86M  13.9MB/s    in 7.2s    
+
+2026-07-13 02:45:36 (11.8 MB/s) - ‘/content/data/GTSRB_Final_Test_Images.zip’ saved [88978620/88978620]
+
+--2026-07-13 02:45:36--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_GT.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 99620 (97K) [application/zip]
+Saving to: ‘/content/data/GTSRB_Final_Test_GT.zip’
+
+GTSRB_Final_Test_GT 100%[===================>]  97.29K   278KB/s    in 0.4s    
+
+2026-07-13 02:45:37 (278 KB/s) - ‘/content/data/GTSRB_Final_Test_GT.zip’ saved [99620/99620]
+
+Dataset downloaded and extracted successfully.
+
+\n--- Markdown Cell 2 ---
+## 1. Load Dataset Annotations
+
+GTSRB có 43 lớp biển báo giao thông.
+
+Training set được chia thành 43 thư mục. Mỗi thư mục chứa ảnh và một file CSV annotation.
+
+Test set sử dụng một file annotation chung có tên `GT-final_test.csv`.
+\n--- Code Cell 4 Outputs ---
+Training shape: (39209, 9)
+
+          Filename  Width  Height  Roi.X1  Roi.Y1  Roi.X2  Roi.Y2  ClassId  \
+0  00000_00000.ppm     29      30       5       6      24      25        0   
+1  00000_00001.ppm     30      30       5       5      25      25        0   
+2  00000_00002.ppm     30      30       5       5      25      25        0   
+3  00000_00003.ppm     31      31       5       5      26      26        0   
+4  00000_00004.ppm     30      32       5       6      25      26        0   
+
+                                           ImagePath  
+0  /content/data/GTSRB/Final_Training/Images/0000...  
+1  /content/data/GTSRB/Final_Training/Images/0000...  
+2  /content/data/GTSRB/Final_Training/Images/0000...  
+3  /content/data/GTSRB/Final_Training/Images/0000...  
+4  /content/data/GTSRB/Final_Training/Images/0000...  
+\n--- Code Cell 5 Outputs ---
+Test shape: (12630, 9)
+
+    Filename  Width  Height  Roi.X1  Roi.Y1  Roi.X2  Roi.Y2  ClassId  \
+0  00000.ppm     53      54       6       5      48      49       16   
+1  00001.ppm     42      45       5       5      36      40        1   
+2  00002.ppm     48      52       6       6      43      47       38   
+3  00003.ppm     27      29       5       5      22      24       33   
+4  00004.ppm     60      57       5       5      55      52       11   
+
+                                         ImagePath  
+0  /content/data/GTSRB/Final_Test/Images/00000.ppm  
+1  /content/data/GTSRB/Final_Test/Images/00001.ppm  
+2  /content/data/GTSRB/Final_Test/Images/00002.ppm  
+3  /content/data/GTSRB/Final_Test/Images/00003.ppm  
+4  /content/data/GTSRB/Final_Test/Images/00004.ppm  
+\n--- Markdown Cell 6 ---
+## 2. Dataset Summary
+
+Phần này thống kê số lượng ảnh và số lớp của training set, test set và toàn bộ dataset.
+\n--- Code Cell 7 Outputs ---
+            Dataset  Number of images  Number of classes
+0      Training set             39209                 43
+1          Test set             12630                 43
+2  Complete dataset             51839                 43
+\n--- Markdown Cell 8 ---
+## 3. Class Distribution
+
+GTSRB có 43 lớp nhưng số lượng ảnh giữa các lớp không bằng nhau.
+
+Biểu đồ phân bố lớp giúp xác định mức độ mất cân bằng dữ liệu. Những lớp có nhiều ảnh hơn có thể ảnh hưởng mạnh hơn đến quá trình huấn luyện mô hình.
+\n--- Code Cell 9 Outputs ---
+<Figure size 1600x600 with 1 Axes>
+\n--- Code Cell 10 Outputs ---
+Class with the fewest images:
+Class ID: 0
+Number of images: 210
+
+Class with the most images:
+Class ID: 2
+Number of images: 2250
+
+Imbalance ratio: 10.71
+
+\n--- Markdown Cell 11 ---
+## 4. Image Dimension Analysis
+
+Các ảnh trong GTSRB có chiều rộng và chiều cao khác nhau.
+
+Điều này xảy ra vì biển báo được chụp ở nhiều khoảng cách, góc nhìn và điều kiện ánh sáng khác nhau.
+
+Do kích thước ảnh không cố định, ảnh cần được resize về cùng kích thước trong bước tiền xử lý.
+\n--- Code Cell 12 Outputs ---
+              Width        Height
+count  39209.000000  39209.000000
+mean      50.835880     50.328930
+std       24.306933     23.115423
+min       25.000000     25.000000
+25%       35.000000     35.000000
+50%       43.000000     43.000000
+75%       58.000000     58.000000
+max      243.000000    225.000000
+\n--- Code Cell 13 Outputs ---
+<Figure size 1000x500 with 1 Axes>
+\n--- Markdown Cell 14 ---
+## 5. Sample Images
+
+Phần này hiển thị một số ảnh ngẫu nhiên trong training set.
+
+Các ảnh cho thấy sự khác nhau về loại biển báo, kích thước, độ sáng, góc nhìn và chất lượng hình ảnh.
+\n--- Code Cell 15 Outputs ---
+<Figure size 1600x1000 with 12 Axes>
+\n--- Markdown Cell 16 ---
+## 6. Dataset Overview Conclusion
+
+The GTSRB dataset contains 51,839 traffic sign images belonging to 43 classes.
+
+The training set contains 39,209 images, while the official test set contains 12,630 images.
+
+The exploratory analysis shows that:
+
+- The dataset contains 43 traffic sign categories.
+- The classes do not contain equal numbers of images.
+- The original images have different widths and heights.
+- Traffic signs were captured under different viewing and lighting conditions.
+- The dataset therefore requires image preprocessing before feature extraction and model training.
+
+In the next stage, the Region of Interest will be cropped, resized to a fixed size, converted to grayscale, and used for HOG feature extraction.
+\n==================================================\nNotebook: traffic_sign.ipynb\n==================================================
+\n--- Code Cell 0 Outputs ---
+--2026-07-13 02:29:14--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Training_Images.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 276294756 (263M) [application/zip]
+Saving to: ‘data/GTSRB_Final_Training_Images.zip’
+
+GTSRB_Final_Trainin 100%[===================>] 263.50M  19.4MB/s    in 15s     
+
+2026-07-13 02:29:29 (17.6 MB/s) - ‘data/GTSRB_Final_Training_Images.zip’ saved [276294756/276294756]
+
+--2026-07-13 02:29:29--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_Images.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 88978620 (85M) [application/zip]
+Saving to: ‘data/GTSRB_Final_Test_Images.zip’
+
+GTSRB_Final_Test_Im 100%[===================>]  84.86M  10.8MB/s    in 8.5s    
+
+2026-07-13 02:29:38 (10.0 MB/s) - ‘data/GTSRB_Final_Test_Images.zip’ saved [88978620/88978620]
+
+--2026-07-13 02:29:38--  https://sid.erda.dk/public/archives/daaeac0d7ce1152aea9b61d9f1e19370/GTSRB_Final_Test_GT.zip
+Resolving sid.erda.dk (sid.erda.dk)... 130.225.104.13
+Connecting to sid.erda.dk (sid.erda.dk)|130.225.104.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 99620 (97K) [application/zip]
+Saving to: ‘data/GTSRB_Final_Test_GT.zip’
+
+GTSRB_Final_Test_GT 100%[===================>]  97.29K   356KB/s    in 0.3s    
+
+2026-07-13 02:29:39 (356 KB/s) - ‘data/GTSRB_Final_Test_GT.zip’ saved [99620/99620]
+
+
+\n--- Code Cell 2 Outputs ---
+data
+data/GTSRB
+data/GTSRB/Final_Training
+data/GTSRB/Final_Training/Images
+data/GTSRB/Final_Training/Images/00030
+data/GTSRB/Final_Training/Images/00005
+data/GTSRB/Final_Training/Images/00008
+data/GTSRB/Final_Training/Images/00021
+data/GTSRB/Final_Training/Images/00025
+data/GTSRB/Final_Training/Images/00032
+data/GTSRB/Final_Training/Images/00023
+data/GTSRB/Final_Training/Images/00033
+data/GTSRB/Final_Training/Images/00018
+data/GTSRB/Final_Training/Images/00034
+data/GTSRB/Final_Training/Images/00019
+data/GTSRB/Final_Training/Images/00006
+data/GTSRB/Final_Training/Images/00007
+data/GTSRB/Final_Training/Images/00037
+data/GTSRB/Final_Training/Images/00010
+data/GTSRB/Final_Training/Images/00002
+
+\n--- Code Cell 4 Outputs ---
+Train exists: True
+Test exists: True
+
+\n--- Code Cell 5 Outputs ---
+Số file CSV label: 43
+['/content/data/GTSRB/Final_Training/Images/00000/GT-00000.csv', '/content/data/GTSRB/Final_Training/Images/00001/GT-00001.csv', '/content/data/GTSRB/Final_Training/Images/00002/GT-00002.csv', '/content/data/GTSRB/Final_Training/Images/00003/GT-00003.csv', '/content/data/GTSRB/Final_Training/Images/00004/GT-00004.csv']
+
+\n--- Code Cell 6 Outputs ---
+/content/data/GTSRB/Final_Training/Images/00000/GT-00000.csv
+
+          Filename  Width  Height  Roi.X1  Roi.Y1  Roi.X2  Roi.Y2  ClassId
+0  00000_00000.ppm     29      30       5       6      24      25        0
+1  00000_00001.ppm     30      30       5       5      25      25        0
+2  00000_00002.ppm     30      30       5       5      25      25        0
+3  00000_00003.ppm     31      31       5       5      26      26        0
+4  00000_00004.ppm     30      32       5       6      25      26        0
+\n--- Code Cell 8 Outputs ---
+Image path: /content/data/GTSRB/Final_Training/Images/00000/00000_00000.ppm
+ClassId: 0
+HOG feature shape: (324,)
+First 10 values: [0.03778902 0.03286696 0.02817982 0.09768153 0.32963112 0.12780431
+ 0.01549799 0.02103676 0.01497179 0.01719324]
+
+\n--- Code Cell 9 Outputs ---
+<Figure size 800x400 with 2 Axes>
+\n--- Code Cell 10 Outputs ---
+100%|██████████| 43/43 [00:30<00:00,  1.42it/s]
+
+X shape: (39209, 324)
+y shape: (39209,)
+Number of classes: 43
+
+\n--- Code Cell 11 Outputs ---
+Saved HOG features successfully!
+
+\n--- Code Cell 12 Outputs ---
+\n--- Code Cell 13 Outputs ---
+Pipeline(steps=[('standardscaler', StandardScaler()),
+                ('linearsvc',
+                 LinearSVC(class_weight='balanced', dual=False, max_iter=10000,
+                           random_state=42))])
+\n--- Code Cell 14 Outputs ---
+Validation Accuracy: 0.9236164243815354
+              precision    recall  f1-score   support
+
+           0       0.93      0.90      0.92        42
+           1       0.84      0.75      0.79       444
+           2       0.80      0.81      0.80       450
+           3       0.91      0.91      0.91       282
+           4       0.96      0.96      0.96       396
+           5       0.75      0.69      0.72       372
+           6       0.99      1.00      0.99        84
+           7       0.87      0.93      0.90       288
+           8       0.84      0.84      0.84       282
+           9       0.96      0.97      0.96       294
+          10       0.97      0.98      0.97       402
+          11       0.91      0.83      0.87       264
+          12       0.99      1.00      1.00       420
+          13       1.00      1.00      1.00       432
+          14       0.99      1.00      1.00       156
+          15       0.99      0.98      0.98       126
+          16       0.95      1.00      0.98        84
+          17       0.97      1.00      0.99       222
+          18       0.95      0.97      0.96       240
+          19       0.93      0.93      0.93        42
+          20       0.94      0.92      0.93        72
+          21       0.93      0.95      0.94        66
+          22       0.96      0.94      0.95        78
+          23       0.91      0.91      0.91       102
+          24       0.91      0.94      0.93        54
+          25       0.92      0.96      0.94       300
+          26       0.90      0.93      0.91       120
+          27       0.94      0.92      0.93        48
+          28       0.88      0.95      0.92       108
+          29       0.82      0.83      0.83        54
+          30       0.82      0.84      0.83        90
+          31       0.99      0.98      0.98       156
+          32       0.98      1.00      0.99        48
+          33       0.98      1.00      0.99       138
+          34       1.00      1.00      1.00        84
+          35       0.99      0.99      0.99       240
+          36       0.96      1.00      0.98        78
+          37       0.93      1.00      0.97        42
+          38       0.98      0.99      0.98       414
+          39       0.94      1.00      0.97        60
+          40       0.85      0.96      0.90        72
+          41       0.98      0.98      0.98        48
+          42       0.98      0.98      0.98        48
+
+    accuracy                           0.92      7842
+   macro avg       0.93      0.94      0.93      7842
+weighted avg       0.92      0.92      0.92      7842
+
+
+\n--- Code Cell 15 Outputs ---
+Model saved successfully!
+
+\n--- Code Cell 16 Outputs ---
+['/content/data/GT-final_test.csv']
+
+    Filename  Width  Height  Roi.X1  Roi.Y1  Roi.X2  Roi.Y2  ClassId
+0  00000.ppm     53      54       6       5      48      49       16
+1  00001.ppm     42      45       5       5      36      40        1
+2  00002.ppm     48      52       6       6      43      47       38
+3  00003.ppm     27      29       5       5      22      24       33
+4  00004.ppm     60      57       5       5      55      52       11
+\n--- Code Cell 18 Outputs ---
+<Figure size 1800x1200 with 12 Axes>
+\n--- Code Cell 19 Outputs ---
+<Figure size 500x500 with 1 Axes>
+Image path: /content/data/GTSRB/Final_Test/Images/00000.ppm
+True label: 16
+True name: Vehicles over 3.5 tons prohibited
+Predicted label: 16
+Predicted name: Vehicles over 3.5 tons prohibited
+Result: Correct
+
+\n--- Code Cell 20 Outputs ---
+     Filename  True Label                              True Name  \
+0   10973.ppm          14                                   Stop   
+1   08611.ppm           5                    Speed limit 80 km/h   
+2   02369.ppm          13                                  Yield   
+3   07633.ppm          11      Right-of-way at next intersection   
+4   09685.ppm           7                   Speed limit 100 km/h   
+5   02288.ppm          30                     Beware of ice/snow   
+6   10023.ppm           4                    Speed limit 70 km/h   
+7   10626.ppm           9                             No passing   
+8   00896.ppm          15                            No vehicles   
+9   03772.ppm           1                    Speed limit 30 km/h   
+10  06109.ppm           8                   Speed limit 120 km/h   
+11  12145.ppm           3                    Speed limit 60 km/h   
+12  09613.ppm          12                          Priority road   
+13  05810.ppm          38                             Keep right   
+14  07714.ppm          25                              Road work   
+15  06545.ppm           8                   Speed limit 120 km/h   
+16  04249.ppm           5                    Speed limit 80 km/h   
+17  00175.ppm           1                    Speed limit 30 km/h   
+18  01593.ppm          10  No passing for vehicles over 3.5 tons   
+19  07439.ppm          30                     Beware of ice/snow   
+
+    Predicted Label                         Predicted Name  Correct  
+0                14                                   Stop     True  
+1                36                   Go straight or right    False  
+2                13                                  Yield     True  
+3                11      Right-of-way at next intersection     True  
+4                 7                   Speed limit 100 km/h     True  
+5                11      Right-of-way at next intersection    False  
+6                 4                    Speed limit 70 km/h     True  
+7                 9                             No passing     True  
+8                15                            No vehicles     True  
+9                 1                    Speed limit 30 km/h     True  
+10                8                   Speed limit 120 km/h     True  
+11                3                    Speed limit 60 km/h     True  
+12               12                          Priority road     True  
+13               38                             Keep right     True  
+14               25                              Road work     True  
+15               38                             Keep right    False  
+16                5                    Speed limit 80 km/h     True  
+17                1                    Speed limit 30 km/h     True  
+18               10  No passing for vehicles over 3.5 tons     True  
+19               30                     Beware of ice/snow     True  
